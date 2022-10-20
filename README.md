@@ -8,7 +8,7 @@ To fully replace the current Central Heating Controller in my house with a <em>s
 
 <h3>Personal Project Aims</h3>
 
-- Improve my overall <b>Coding Skills</b>
+- Improve my overall <b>Coding Skills</b> :computer:
 - Familiarise myself with <b>GitHub Projects</b>
 - Work towards Mastering :crown: <b> GitHub Version Control</b>
 - Join the Smart-Home <b><em>Community</em></b> :people_hugging:
