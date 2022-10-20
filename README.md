@@ -1,15 +1,47 @@
-<h1 align="center">My Smart Home Central Heating Project</h1>
+<h1 align="center">My Smart Home :house_with_garden: Central Heating Project</h1>
 <h5 align="center">A Project utilising Node-Red and micro-controllers</h5>
 
-<h2>Purpose</h2>
-<p> To fully replace my current Central Heating Controller with a <em>smarter</em> 
+<h3>Purpose</h2>
+<p>
+To fully replace the current Central Heating Controller in my house with a <em>smarter</em> <b>hub</b> with <u><em>expandability!</em></u>
 </p>
 
-<h2></h2>
+<h3>Personal Project Aims</h3>
 
-<h2>Devicies To be Used</h2>
+- Improve my overall <b>Coding Skills</b>
+- Familiarise myself with <b>GitHub Projects</b>
+- Work towards Mastering <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/crown.svg" width="20" height="20"><b> GitHub Version Control</b>
+- Join the Smart-Home <b><em>Community</em></b>
+- And most importantly...... <font size=6><b><em>have some Fun!!!</b></em></font>
 
-- <h4>Raspberry Pi 2 (unless i can get hold of a Pi 4)</h4>
+<h3>Hardware</h3>
 
-- <h4>ESP32, ESP8266</h4>
+- A Raspberry Pi 2 (unless i can get hold of a Pi 4)
+- A handful of ESP32s
+- An ESP8266
+- A 16x2 LCD Screen
+- A few 1" OLED Screen
+- A Rotary Encoder
+- A veriety of Momentary Switches/Buttons
 
+<h3>Software</h3>
+
+- Raspberry Pi Lite OS
+- Node-Red
+- Mosquitto MQTT
+- InfluxDB
+- GitHub Desktop
+
+<h3>IDE and extensions</h3>
+
+- Visual Studio Code
+  - PlatformIO
+  - Remote Host
+
+<h3>Coding Languages</h3>
+
+- C++, C
+- JavaScript
+- Python
+- HTML
+- CSS
