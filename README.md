@@ -10,8 +10,8 @@ To fully replace the current Central Heating Controller in my house with a <em>s
 
 - Improve my overall <b>Coding Skills</b>
 - Familiarise myself with <b>GitHub Projects</b>
-- Work towards Mastering <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/crown.svg" width="20" height="20"><b> GitHub Version Control</b>
-- Join the Smart-Home <b><em>Community</em></b>
+- Work towards Mastering :crown: <b> GitHub Version Control</b>
+- Join the Smart-Home <b><em>Community</em></b> :people_hugging:
 - And most importantly...... <font size=6><b><em>have some Fun!!!</b></em></font>
 
 <h3>Hardware</h3>
