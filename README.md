@@ -1,4 +1,4 @@
-<h1 align="center">My Smart Home :house_with_garden: Central Heating Project</h1>
+<h1 align="center">My Smart Home :house_with_garden: Central Heating :fire: Project</h1>
 <h5 align="center">A Project utilising Node-Red and micro-controllers</h5>
 
 <h3>Purpose</h2>
