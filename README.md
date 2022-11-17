@@ -3,7 +3,7 @@
 
 <h3>Purpose</h2>
 <p>
-To fully replace the current Central Heating Controller in my house with a <em>smarter and customisable</em> <b><HUB/b> with <u><em>expandability!</em></u>
+To fully replace the current Central Heating Controller in my house with a <em>smarter and customisable</em> HUB with <u><em>expandability!</em></u>
 </p>
 
 <h3>Personal Project Aims</h3>
@@ -26,11 +26,13 @@ To fully replace the current Central Heating Controller in my house with a <em>s
 
 <h3>Software</h3>
 
+- Raspberry Pi Imager
 - Raspberry Pi Lite OS
 - Node-Red
 - Mosquitto MQTT
 - InfluxDB
 - GitHub Desktop
+- Putty
 
 <h3>IDE and extensions</h3>
 
@@ -40,7 +42,7 @@ To fully replace the current Central Heating Controller in my house with a <em>s
 
 <h3>Coding Languages</h3>
 
-- C++, C
+- C, C++
 - JavaScript
 - Python
 - HTML
