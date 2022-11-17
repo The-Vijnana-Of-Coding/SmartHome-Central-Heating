@@ -6,16 +6,19 @@
         0.1   - Inital project setup
               - Added debugging file.
         0.2   - Added Dual Core Initial Setup
+        0.3   - Added LCD Initial Setup
 */
-//***** - Version Number - *****//
-#define ver 0.2
-
 #include <Arduino.h>
+#include <Wire.h>
 
 //***** - Local Includes - *****//
 #include <core0Tasks.h>
 #include <core1Tasks.h>
 #include <isDebug.h>
+#include <LCD.h>
+
+//***** - Version Number - *****//
+#define ver 0.3
 
 //***** - Core 0 Tasks - *****//
 TaskHandle_t menuTask;
@@ -39,6 +42,8 @@ void setup() {
 
     debugln("*******Finished Setup*******");
     delay(250);
+
+    initScreen();
 }
 ////////////////////////////////////////////////////////////////
 
