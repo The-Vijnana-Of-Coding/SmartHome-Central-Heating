@@ -15,7 +15,6 @@
 #include <core0Tasks.h>
 #include <core1Tasks.h>
 #include <isDebug.h>
-#include <LCD.h>
 
 //***** - Version Number - *****//
 #define ver 0.3
@@ -43,7 +42,6 @@ void setup() {
     debugln("*******Finished Setup*******");
     delay(250);
 
-    initScreen();
 }
 ////////////////////////////////////////////////////////////////
 
