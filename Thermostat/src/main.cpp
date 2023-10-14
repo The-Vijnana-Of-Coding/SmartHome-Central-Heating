@@ -1,9 +1,15 @@
-#include <Arduino.h>
+#include "common.h"
+
+#define isDebug true // if defined true, print is enabled, false is disabled
 
 void setup() {
-  // put your setup code here, to run once:
+  debugln("SETUP begin!");
+
+
+
+  debugln("SETUP end!");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
 }
