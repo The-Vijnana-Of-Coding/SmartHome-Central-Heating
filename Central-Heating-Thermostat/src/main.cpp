@@ -15,6 +15,12 @@
 #include <core0Tasks.h>
 #include <core1Tasks.h>
 #include <isDebug.h>
+#include <WiFi.h>
+
+
+const char* ssid = "Girls";
+const char* password = "1Scooby23";
+
 
 //***** - Version Number - *****//
 #define ver 0.3
@@ -28,7 +34,23 @@ void setup() {
     Serial.begin(115200);
     delay(10);
     debugln("*******Beginning Setup*******");
+    WiFi.mode(WIFI_STA);
+    WiFi.begin(ssid, password);
+    Serial.println("");
 
+    // Wait for connection
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println("");
+    Serial.print("Connected to ");
+    Serial.println(ssid);
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
+
+    
+    Serial.println("HTTP server started");
     // create a task that will be executed in the menuFunctionality() function, with priority 1 and executed on core 0
     xTaskCreatePinnedToCore(
         menuFunctionality,   /* Task function. */
