@@ -7,4 +7,4 @@
         * - IO - *
 */
 
-uint8_t tempSensorPin = 10;
+uint8_t tempSensorPin = 19;
