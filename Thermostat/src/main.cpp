@@ -4,8 +4,7 @@
 #include <PubSubClient.h>
 #include <WiFi.h>
 
-WiFiClient espClient;
-PubSubClient client;
+WiFiUDP udp;
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire tempSensorOneWire(tempSensorPin);
@@ -24,42 +23,6 @@ void setup_wifi() {
   Serial.println("Connected to WiFi");
 }
 
-void mqtt_callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived in topic: ");
-  Serial.println(topic);
-  Serial.print("Message: ");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
-}
-
-void mqtt_reconnect() {
-  while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    if (client.connect("ThermostatClient1", mqttUser, mqttPassword)) {
-      Serial.println("connected");
-      client.subscribe(mqttTopic);
-    } else {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(5000);
-    }
-  }
-}
-
-void mqtt_loop() {
-  if (!client.connected()) {
-    mqtt_reconnect();
-  }
-  client.loop();
-}
-
-void setup_mqtt() {
-  client.setServer(mqttServer, mqttPort);
-  client.setCallback(mqtt_callback);
-}
 
 void setup() {
   debugln("SETUP begin!");
@@ -74,8 +37,6 @@ void setup() {
 
   debugln("Start WiFi");
   setup_wifi();
-  debugln("Start MQTT");
-  setup_mqtt();
 
   debugln("SETUP end!");
 }
@@ -86,5 +47,13 @@ void loop() {
   float temperatureC = tempSensor.getTempCByIndex(0);
   debug(temperatureC);
   debugln("°C");
+
+  // Send a UDP broadcast message to all devices on the same network
+  udp.beginPacket(IPAddress(255, 255, 255, 255), udpServerPort);
+  udp.print("Broadcast message");
+  udp.endPacket();
+
+  Serial.println("Broadcast message sent via UDP");
+
   delay(5000);
 }
