@@ -3,6 +3,7 @@
 #include "common.h"
 #include <PubSubClient.h>
 #include <WiFi.h>
+#include "thermostat.cpp"
 
 WiFiUDP udp;
 
@@ -47,13 +48,13 @@ void loop() {
   float temperatureC = tempSensor.getTempCByIndex(0);
   debug(temperatureC);
   debugln("°C");
-
+  sensor.temp = temperatureC;
+  uint8_t buffer[sizeof(struct tempSensor)];
+  memcpy(buffer, &sensor, sizeof(struct tempSensor));
   // Send a UDP broadcast message to all devices on the same network
   udp.beginPacket(IPAddress(255, 255, 255, 255), udpServerPort);
-  udp.print("Broadcast message");
+  udp.write(buffer, sizeof(struct tempSensor));
   udp.endPacket();
-
   Serial.println("Broadcast message sent via UDP");
-
   delay(5000);
 }
