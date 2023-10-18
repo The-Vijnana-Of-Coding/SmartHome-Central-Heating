@@ -1,16 +1,14 @@
 {
-	"folders": [
-		{
-			"path": ".."
-		},
-		{
-			"name": "Thermostat",
-			"path": "."
-		}
-	],
-	"settings": {
-		"githubPullRequests.ignoredPullRequestBranches": [
-			"main"
-		]
-	}
+    "folders": [
+        {
+            "path": "../.."
+        },
+        {
+            "name": "Controller",
+            "path": "../Controller"
+        },
+        {
+            "path": "."
+        }
+    ]
 }
