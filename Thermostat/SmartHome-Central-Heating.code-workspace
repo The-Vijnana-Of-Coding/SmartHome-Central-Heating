@@ -1,12 +1,14 @@
 {
-	"folders": [
-		{
-			"path": ".."
-		},
-		{
-			"name": "Thermostat",
-			"path": "."
-		}
-	],
-	"settings": {}
+    "folders": [
+        {
+            "path": "../.."
+        },
+        {
+            "name": "Controller",
+            "path": "../Controller"
+        },
+        {
+            "path": "."
+        }
+    ]
 }
