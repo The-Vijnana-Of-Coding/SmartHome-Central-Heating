@@ -8,7 +8,25 @@ void setup() {
   // Start the Serial Monitor
   Serial.begin(115200);
 
-  
+  // Mount the filesystem
+  if (!SPIFFS.begin(true)) {
+    Serial.println("An error occurred while mounting the filesystem.");
+    return;
+  }
+  // Serve the HTML file
+  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/index.html", "text/html");
+  });
+
+  // Handle form submission
+  server.on("/submit", HTTP_POST, [](AsyncWebServerRequest *request){
+    String textValue = request->arg("inputText");
+    Serial.print("Received text: ");
+    Serial.println(textValue);
+    request->send(200, "text/plain", "Received: " + textValue);
+  });
+
+  server.begin();
   debugln("SETUP end!");
 }
 
