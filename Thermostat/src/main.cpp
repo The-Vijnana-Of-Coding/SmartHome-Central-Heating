@@ -15,22 +15,25 @@ DallasTemperature tempSensor(&tempSensorOneWire);
 
 void setup_wifi() {
   delay(10);
-  Serial.println("Connecting to WiFi");
+  debugln("Connecting to WiFi");
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
-    Serial.println("Connecting to WiFi...");
+    debugln("Connecting to WiFi...");
   }
-  Serial.println("Connected to WiFi");
+  debugln("Connected to WiFi");
+  // Print ESP32 Local IP Address
+  debugln(WiFi.localIP());
 }
 
 
 void setup() {
-  debugln("SETUP begin!");
   
-  debugln("Start Serial Monitor");
   // Start the Serial Monitor
   Serial.begin(115200);
+  debugln("SETUP begin!");
+  
+  debugln("Start Serial Monitor");  
 
   // ## Temp Sensor Setup ## //
   debugln("Start Temp Sensor");
@@ -38,7 +41,6 @@ void setup() {
 
   debugln("Start WiFi");
   setup_wifi();
-
   debugln("SETUP end!");
 }
 
@@ -50,11 +52,11 @@ void loop() {
   debugln("°C");
   sensor.temp = temperatureC;
   uint8_t buffer[sizeof(struct tempSensor)];
-  memcpy(buffer, &sensor, sizeof(struct tempSensor));
+  memcpy(buffer, &sensor, sizeof(sensor));
   // Send a UDP broadcast message to all devices on the same network
   udp.beginPacket(IPAddress(255, 255, 255, 255), udpServerPort);
-  udp.write(buffer, sizeof(struct tempSensor));
+  udp.write(buffer, sizeof(sensor));
   udp.endPacket();
-  Serial.println("Broadcast message sent via UDP");
+  debugln("Broadcast message sent via UDP");
   delay(5000);
 }

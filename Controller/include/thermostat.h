@@ -1,4 +1,3 @@
-
 struct tempSensor {
     float temp;
     char name[16];
