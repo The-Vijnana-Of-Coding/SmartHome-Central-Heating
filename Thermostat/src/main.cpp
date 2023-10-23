@@ -4,28 +4,14 @@
 #include <PubSubClient.h>
 #include <WiFi.h>
 #include "thermostat.cpp"
-
-WiFiUDP udp;
+#include "mqtt.h"
+#include <ArduinoJson.h>
 
 // Setup a oneWire instance to communicate with any OneWire devices
 OneWire tempSensorOneWire(tempSensorPin);
 
 // Pass our oneWire reference to Dallas Temperature sensor 
 DallasTemperature tempSensor(&tempSensorOneWire);
-
-void setup_wifi() {
-  delay(10);
-  debugln("Connecting to WiFi");
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    debugln("Connecting to WiFi...");
-  }
-  debugln("Connected to WiFi");
-  // Print ESP32 Local IP Address
-  debugln(WiFi.localIP());
-}
-
 
 void setup() {
   
@@ -40,23 +26,38 @@ void setup() {
   tempSensor.begin();
 
   debugln("Start WiFi");
-  setup_wifi();
+  // Connect to Wi-Fi
+	setupWiFi();
+	// Print ESP32 Local IP Address
+	debugln(WiFi.localIP());
+	// Setup MQTT
+	setupMQTT();
   debugln("SETUP end!");
 }
 
 void loop() {
+  checkMQTTConnection();
   debugln("Temp Sensor");
   tempSensor.requestTemperatures(); 
   float temperatureC = tempSensor.getTempCByIndex(0);
   debug(temperatureC);
   debugln("°C");
   sensor.temp = temperatureC;
-  uint8_t buffer[sizeof(struct tempSensor)];
-  memcpy(buffer, &sensor, sizeof(sensor));
-  // Send a UDP broadcast message to all devices on the same network
-  udp.beginPacket(IPAddress(255, 255, 255, 255), udpServerPort);
-  udp.write(buffer, sizeof(sensor));
-  udp.endPacket();
-  debugln("Broadcast message sent via UDP");
+
+  // Serialize the struct to JSON
+  const size_t capacity = JSON_OBJECT_SIZE(1);  // Adjust the size as needed
+  DynamicJsonDocument jsonDoc(capacity);
+  jsonDoc["temperature"] = sensor.temp;
+
+  // Serialize the JSON to a string
+  String jsonString;
+  serializeJson(jsonDoc, jsonString);
+  const char* jsonChar = jsonString.c_str();
+
+  // Publish the JSON message
+  publishMessage(jsonChar);
+  
+  handleMQTTMessages();
   delay(5000);
 }
+

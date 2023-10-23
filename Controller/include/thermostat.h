@@ -1,3 +1,6 @@
+#ifndef THERMOSTAT_H
+#define THERMOSTAT_H
+
 struct tempSensor {
     float temp;
     char name[16];
@@ -5,3 +8,5 @@ struct tempSensor {
 };
 
 struct tempSensor sensor = {0.0f, "sensor1", "temperature"};
+
+#endif

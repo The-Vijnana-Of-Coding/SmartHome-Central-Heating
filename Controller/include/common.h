@@ -5,6 +5,7 @@
 #include <SPIFFS.h> // For serving files from the filesystem
 #include <ArduinoJson.h>
 
+#include "mqttTopics.h"
 #include "confi_config.h"
 #include "config.h"
 #include "isDebug.h"
