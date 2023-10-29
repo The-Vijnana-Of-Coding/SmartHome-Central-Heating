@@ -41,50 +41,38 @@ void handleMQTT(const char* topic, const char* message)
   DynamicJsonDocument jsonDoc(256); // Adjust the buffer size as needed
   DeserializationError error = deserializeJson(jsonDoc, message);
 
-  if (error)
+  if (strcmp(topic, sub_temp) == 0)
   {
-    Serial.print("Failed to parse JSON: ");
-    Serial.println(error.c_str());
+    float temperature = jsonDoc["temperature"];
+    Serial.print("Received temperature: ");
+    Serial.println(temperature);
+    checkTemp(temperature);
   }
-  else
+  else if (strcmp(topic, sub_override_set) == 0)
   {
-    if (strcmp(topic, sub_temp) == 0)
+    if(strcmp(message, "ON") == 0)
     {
-      float temperature = jsonDoc["temperature"];
-      Serial.print("Received temperature: ");
-      Serial.println(temperature);
-      checkTemp(temperature);
-    }
-    else if (strcmp(topic, sub_override_set) == 0)
-    {
-      if(jsonDoc["chstate"] == "ON")
+      if(digitalRead(relayPin))
       {
-        if(digitalRead(relayPin))
-        {
-            debugln("Relay Already ON!");
-        }
-        else
-        {
-            digitalWrite(relayPin, HIGH);
-            debugln("Switching Relay ON!");
-        }
-      } 
+          debugln("Relay Already ON!");
+      }
       else
       {
-        if(!digitalRead(relayPin))
-        {
-            debugln("Relay Already OFF!");
-        }
-        else
-        {
-            digitalWrite(relayPin, LOW);
-            debugln("Switching Relay OFF!");
-        }
+          digitalWrite(relayPin, HIGH);
+          debugln("Switching Relay ON!");
       }
-    }
+    } 
     else
     {
-      Serial.println("JSON message lacks 'temperature' field.");
+      if(!digitalRead(relayPin))
+      {
+          debugln("Relay Already OFF!");
+      }
+      else
+      {
+          digitalWrite(relayPin, LOW);
+          debugln("Switching Relay OFF!");
+      }
     }
   }
 }
