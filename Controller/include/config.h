@@ -8,7 +8,6 @@
 /*
         * - IO - *
 */
-
 uint8_t relayPin = 17;
 
 #endif

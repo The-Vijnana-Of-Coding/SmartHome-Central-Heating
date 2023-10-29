@@ -32,7 +32,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
-    if (client.connect("ESP32Client", mqtt_username, mqtt_password)) {
+    if (client.connect("Controller", mqtt_username, mqtt_password)) {
       Serial.println("Connected to MQTT broker");
     } else {
       Serial.print("Failed to connect to MQTT broker, rc=");
