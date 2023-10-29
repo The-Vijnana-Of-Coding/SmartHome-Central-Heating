@@ -9,6 +9,15 @@
 WiFiClient espClient;
 PubSubClient client(espClient);
 
+void setupWiFi() {
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+  Serial.println("Connected to WiFi");
+}
+
 void callback(char* topic, byte* payload, unsigned int length) {
   // Handle incoming messages
   Serial.print("Received message on topic: ");
@@ -26,7 +35,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   message[length] = '\0'; // Null-terminate the string
     // Add your message handling code here
     handleMQTT(topic, message);
-  
 }
 
 void reconnect() {
@@ -43,11 +51,16 @@ void reconnect() {
 }
 
 void checkMQTTConnection() {
+  if (WiFi.status() != WL_CONNECTED) {
+    // Handle Wi-Fi disconnection
+    setupWiFi(); // Attempt to reconnect to Wi-Fi
+  }
   if (!client.connected()) {
     reconnect();
   }
   client.loop();
 }
+
 
 void publishMessage(const char* topic,const char* message) {
   if (client.connected()) {
@@ -55,8 +68,13 @@ void publishMessage(const char* topic,const char* message) {
   }
 }
 
-void subscribeToTopic(const char* topic) {
-  client.subscribe(topic);
+void subscribeToTopics() 
+{
+    for (int i = 0; i < num_sub_topics; i++) 
+    {
+        client.subscribe(sub_topics[i]);
+        debugln("Subscribing to: " + String(sub_topics[i]));
+    }
 }
 
 void handleMQTTMessages() {
@@ -64,14 +82,7 @@ void handleMQTTMessages() {
   client.loop();
 }
 
-void setupWiFi() {
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi...");
-  }
-  Serial.println("Connected to WiFi");
-}
+
 
 void setupMQTT() {
   client.setServer(mqtt_server, mqtt_port);
